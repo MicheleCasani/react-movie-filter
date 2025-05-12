@@ -17,29 +17,16 @@ function App() {
   const [search, setSearch] = useState('')
   const [filteredFilms, setFilteredFilms] = useState(films)
 
-  // ricerca in base al genere
+
   useEffect(() => {
     const filteredArray = films.filter((film) => {
-      return film.genre.toLowerCase().includes(search.toLowerCase());
+      return (
+        film.genre.toLowerCase().includes(search.toLowerCase()) || film.title.toLowerCase().includes(search.toLowerCase())
+      );
     })
     setFilteredFilms(filteredArray)
 
   }, [search]);
-
-  // ricercare in base al titolo
-  useEffect(() => {
-    const filteredArray = films.filter((film) => {
-      return film.title.toLowerCase().includes(search.toLowerCase());
-    })
-    setFilteredFilms(filteredArray)
-
-  }, [search]);
-
-
-
-
-
-
 
   return (
     <>
