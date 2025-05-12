@@ -1,4 +1,4 @@
-import { useState, } from 'react'
+import { useEffect, useState, } from 'react'
 
 const films = [
   { title: 'Inception', genre: 'Fantascienza' },
@@ -14,6 +14,17 @@ const films = [
 function App() {
 
   const [film, setFilm] = useState(films)
+  const [search, setSearch] = useState('')
+  const [filteredFilms, setFilteredFilms] = useState(films)
+
+
+  useEffect(() => {
+    const filteredArray = films.filter((film) => {
+      return film.genre.toLowerCase().includes(search.toLowerCase());
+    })
+    setFilteredFilms(filteredArray)
+
+  }, [search]);
 
 
 
@@ -27,8 +38,8 @@ function App() {
         <h1>Film Form</h1>
 
         <ul className='list-group'>
-          {film.map((film, id) =>
-            <li className='list-group-item' key={id}>
+          {filteredFilms.map((film, index) =>
+            <li className='list-group-item' key={index}>
               {film.title}  {': '} {film.genre}
             </li>
           )}
@@ -37,9 +48,12 @@ function App() {
         <div className='input-group mt-3'>
           <input
             type="text"
-            placeholder='Cerca'
+            placeholder='Cerca in base al genere...'
             className='form-control'
-            value={''}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value)
+            }}
           />
         </div>
 
