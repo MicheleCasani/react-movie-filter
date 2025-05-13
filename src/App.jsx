@@ -85,6 +85,20 @@ function App() {
             }}
           />
         </div>
+        <div className='input-group mt-3'>
+          <select
+            className='form-select'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          >
+            <option value=''>Tutti i generi</option>
+            {filmsState.map(film => film.genre).map((genre, index) => (
+              <option key={index} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </div>
 
       </div>
     </>
